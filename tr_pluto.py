@@ -1,11 +1,12 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import uav_frame_info as uavi
+import simulations.uav_frame_info as uavi
+# import adi
 
 np.random.seed(42)  # Setting the seed for reproducibility
 
 # Parameters
-Fs = 2.4e9
+Fs = 900e6
 fc = 100
 fp = 4
 bit_t = 0.1
@@ -29,10 +30,8 @@ pn_code = np.random.randint(0, 2, size=len(m)*fp)
 
 # Convert 0 to -1 for DSSS encoding
 pn_code[pn_code == 0] = -1
-
 # DSSS encoding
 DSSS = message * pn_code
-
 # Modulate the DSSS signal
 t = np.arange(0, (bit_t-1/Fs), 1/1000)
 s0 = np.sin(2 * np.pi * fc * t)
@@ -115,11 +114,11 @@ plt.ylabel('Bit value')
 plt.legend()
 
 # Print the frames
-print("Transmitted frame: ")
-frame.print_tx_frame()
-print("\n\nReceived frame: ")
-frame.print_rx_frame(result)
-print("\n\nReceived frame with wrong PN code: ")
-frame.print_rx_frame(result_wrong)
+# print("Transmitted frame: ")
+# frame.print_tx_frame()
+# print("\n\nReceived frame: ")
+# frame.print_rx_frame(result)
+# print("\n\nReceived frame with wrong PN code: ")
+# frame.print_rx_frame(result_wrong)
 
 plt.show()
