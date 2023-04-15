@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import simulations.uav_frame_info as uavi
+import simulations.uav_packet as uavi
 # import adi
 
 np.random.seed(42)  # Setting the seed for reproducibility
@@ -12,11 +12,10 @@ fp = 4
 bit_t = 0.1
 
 # generate a message with contents of uav_frame_info.py
-frame = uavi.UAVFrame(20, 2, 1, 1, 1, 1, 5, 5, -5, -12, 0, -1)
+frame = uavi.UAVPacket(20, 2, 1, 1, 1, 1, 5, 5, -5, -12, 0, -1)
 m = frame.get_message()
 
 # Message generation with BPSK
-# m = np.array([0,0,1,1,0,0,0,0,0,1,1,0,1,1,1,1,0,0,0,1,1,0,0,1,0,1])
 m[m == 0] = -1  # Convert 0 to -1 for BPSK modulation
 
 # do the python equivalent of message =  repmat(m,fp,1);
