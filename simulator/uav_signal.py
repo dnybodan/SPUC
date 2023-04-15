@@ -101,7 +101,7 @@ class UAVSignal:
         self.result_wrong = np.array([])
         self.rx2 = np.array([])
         self.demod2 = np.array([])
-        self.pn_code_wrong = np.random.randint(0, 2, size=len(self.message)*self.fp)
+        self.pn_code_wrong = np.random.randint(0, 2, size=len(self.pn_code))
         self.pn_code_wrong[self.pn_code_wrong == 0] = -1
 
     def set_pn_code(self, pn_code=None):
@@ -185,7 +185,6 @@ class UAVSignal:
         self.rx = np.array([])
         self.demod = np.array([])
         self.result = np.array([])
-        print(self.pn_code)
         # despread the signal by bringing code back out of the psuedo-random sequence
         for i in range(len(self.pn_code)):
             if self.pn_code[i] == 1:
@@ -228,6 +227,7 @@ class UAVSignal:
             Returns
             -------
             result_wrong : ndarray'''
+        self.rx2 = np.array([])
         self.demod2 = np.array([])
         self.result_wrong = np.array([])
         for i in range(len(self.pn_code_wrong)):
@@ -235,7 +235,7 @@ class UAVSignal:
                 self.rx2 = np.concatenate((self.rx2, self.BPSK[(i*len(self.t)):((i+1)*len(self.t))]))
             else:
                 self.rx2 = np.concatenate((self.rx2, -1 * self.BPSK[(i*len(self.t)):((i+1)*len(self.t))]))
-        
+        self.demod2 = self.rx2
         for i in range(int(len(self.message)/self.fp)):
             x = len(self.t) * self.fp
             cx = np.sum(self.carrier[(i*x):(i+1)*x] * self.demod2[(i*x):(i+1)*x])

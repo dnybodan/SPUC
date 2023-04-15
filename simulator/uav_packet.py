@@ -88,11 +88,8 @@ class UAVPacket:
         '''Create a m-bit pseudo-noise code using the UAV_ID and CONTROL_ID.
         return: a m-bit pseudo-noise code.'''
         # take the two ID's and create an m-bit code
-        # hash the ID's to get the code
         code = self.UAV_ID ^ self.CONTROL_ID * 200
-        # convert code to binary array of m-bits even if code is over m-bits
         code = np.binary_repr(code, width=mbits)
-        # create array of the code
         code = [int(x) for x in code[0:mbits]]
         return np.array(code)
     
