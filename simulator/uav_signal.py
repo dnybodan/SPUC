@@ -56,24 +56,6 @@ class UAVSignal:
             The demodulated signal.
         result : ndarray
             The decoded message.
-
-        Methods 
-        -------
-        set_pn_code(pn_code)
-            Sets the PN code for DSSS encoding.
-        encode()
-            Encodes the message using DSSS encoding.
-        modulate()
-            Modulates the DSSS encoded signal.
-        demodulate()
-            Demodulates the received signal.
-        decode()
-            Decodes the demodulated signal.
-        plot()
-            Plots the original message, the encoded message, the modulated signal,
-            the demodulated signal, and the decoded message.
-        plot_constellation()
-            Plots the constellation diagram of the modulated signal.
         '''
 
     def __init__(self, message=[0, 1, 0, 1], pn_code=[1,0,0,1], Fs=2.4e9, fc=100, fp=4, bit_t=.01):
