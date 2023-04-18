@@ -88,9 +88,8 @@ class UAVPacket:
         '''Create a m-bit pseudo-noise code using the UAV_ID and CONTROL_ID.
         return: a m-bit pseudo-noise code.'''
         # take the two ID's and create an m-bit code
-        code = self.UAV_ID ^ self.CONTROL_ID * 200
-        code = np.binary_repr(code, width=mbits)
-        code = [int(x) for x in code[0:mbits]]
+        seed = np.random.seed(self.UAV_ID + self.CONTROL_ID)
+        code = np.random.randint(0, 2, mbits)
         return np.array(code)
     
     def print_tx_frame(self):

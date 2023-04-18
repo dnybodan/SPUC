@@ -33,6 +33,7 @@ PLOT = True
 NUM_BERS = 30
 
 
+
 # Setting the seed for reproducibility
 np.random.seed(42)
 
@@ -181,6 +182,25 @@ if DEMO_CAPACITY:
     plt.title("BER vs Number of Interfering Signals")
 
 ##############################################################################
+# add plot for two added signals with noise added together and recovered
+##############################################################################
+
+# make a foo signal to add to the modulated signal
+fooframe = uavp.UAVPacket(0, 1, 11, 2, 3, 4, 8, 7, -35, -2, 0, -1)
+foo = fooframe.get_message()
+foocode = fooframe.get_pn_code(mbits=pn_width)
+foo = uavs.UAVSignal(foo, foocode, Fs, fc, pn_width, windowperiod)
+foosignal = foo.modulate()
+
+# demonstrate CDMA with the foo signal and the original signal
+signal1.modulate(addsignal=foosignal, plot=False)
+signal1.demodulate()
+frame1.compare(signal1.result, printTable=True)
+signal1.set_pn_code(foocode)
+signal1.demodulate()
+frame1.compare(signal1.result, printTable=True)
+fooframe.compare(signal1.result, printTable=True)
+
 
 # master plot signal
 if(PLOT):
